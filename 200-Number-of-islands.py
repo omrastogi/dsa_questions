@@ -1,6 +1,36 @@
 from typing import List
+from collections import deque
 
+# The most efficient solution by BFS
 class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid:
+            return 0
+
+        M, N = len(grid), len(grid[0])
+        directions = [(1,0), (-1,0), (0,1), (0,-1)]
+        island_count = 0
+
+        def bfs(m, n):
+            queue = deque([(m, n)])
+            grid[m][n] = '0'  # Mark as visited
+            while queue:
+                x, y = queue.popleft()
+                for dx, dy in directions:
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < M and 0 <= ny < N and grid[nx][ny] == '1':
+                        queue.append((nx, ny))
+                        grid[nx][ny] = '0'  # Mark visited immediately
+
+        for m in range(M):
+            for n in range(N):
+                if grid[m][n] == '1':  # Found an island
+                    island_count += 1
+                    bfs(m, n)
+
+        return island_count
+
+class Solution_DFS:
     def __init__(self):
         self.memo = None
         self.M, self.N = None, None
