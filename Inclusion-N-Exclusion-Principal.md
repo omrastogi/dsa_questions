@@ -19,20 +19,15 @@ Thus, to find the correct size of the union:
 
 ## Mathematical Formulas
 
-### For 2 sets A and B:
-\[
-|A \cup B| = |A| + |B| - |A \cap B|
-\]
+For 2 sets A and B:  
+$|A \cup B| = |A| + |B| - |A \cap B|$
 
-### For 3 sets A, B, and C:
-\[
-|A \cup B \cup C| = |A| + |B| + |C| - (|A \cap B| + |B \cap C| + |C \cap A|) + |A \cap B \cap C|
-\]
+For 3 sets A, B, and C:  
+$|A \cup B \cup C| = |A| + |B| + |C| - (|A \cap B| + |B \cap C| + |C \cap A|) + |A \cap B \cap C|$
 
-### General form for n sets:
-\[
-\left| \bigcup_{i=1}^{n} A_i \right| = \sum_{i} |A_i| - \sum_{i<j} |A_i \cap A_j| + \sum_{i<j<k} |A_i \cap A_j \cap A_k| - \cdots + (-1)^{n+1} |A_1 \cap A_2 \cap \cdots \cap A_n|
-\]
+General form for n sets:  
+$\left| \bigcup_{i=1}^{n} A_i \right| = \sum_{i} |A_i| - \sum_{i<j} |A_i \cap A_j| + \sum_{i<j<k} |A_i \cap A_j \cap A_k| - \cdots + (-1)^{n+1} |A_1 \cap A_2 \cap \cdots \cap A_n|$
+
 
 ---
 
@@ -56,4 +51,18 @@ Thus, when we want to find how many elements satisfy "**$A$ OR $B$ OR $C$**", PI
 - **Mathematically**, PIE corrects overcounting when sets overlap.
 - **Logically**, PIE models how **OR** conditions in Boolean expressions behave.
 - **Alternate between adding and subtracting** based on how many sets are intersecting.
+
+## Questions: 
+- LeetCode 2654 - Minimum Number of Operations to Make All Array Elements Equal to 1
+- LeetCode 898 - Bitwise ORs of Subarrays
+- LeetCode 919 - Number of Subsequences That Satisfy the Given Sum Condition
+- LeetCode 1930 - Unique Length-3 Palindromic Subsequences
+- LeetCode 1359 - Count All Valid Pickup and Delivery Options
+- LeetCode 2475 - Number of Unequal Triplets in Array
+- LeetCode 2549 - Count Distinct Integers After Reverse Operations
+- LeetCode 2444 - Count Subarrays With Fixed Bounds
+
+**Bonus (Advanced):**
+- LeetCode 2801 - Count Stepping Numbers in Range
+- LeetCode 2597 - The Number of Beautiful Subsets
 
