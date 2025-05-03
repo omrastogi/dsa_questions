@@ -74,3 +74,12 @@ def fib(n):
 > ✅ Use **Top-Down DP** when recursion feels natural.  
 > ✅ Use **Bottom-Up DP** when performance matters.  
 > ✅ Use **Space Optimization** when memory is tight or unnecessary to store everything.
+
+
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+# DP, Chapter-15 of Introduction to Algorithm (by Thomas Cormen)  
+
+> The Cut-Rod Problem ([code](The-cut-rod-prb.py)) 
+
+> Exercise 15.1-5: Fibonacci Problem ([code](febonacci-prb.py))
