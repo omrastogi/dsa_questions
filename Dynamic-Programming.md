@@ -80,6 +80,6 @@ def fib(n):
 
 # DP, Chapter-15 of Introduction to Algorithm (by Thomas Cormen)  
 
-> The Cut-Rod Problem ([code](The-cut-rod-prb.py)) 
+> The Cut-Rod Problem ([code](cut-rod-prb.py)) 
 
 > Exercise 15.1-5: Fibonacci Problem ([code](febonacci-prb.py))
