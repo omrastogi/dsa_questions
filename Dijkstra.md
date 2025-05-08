@@ -1,5 +1,5 @@
 # Study Dijkstra's Algorithm and Practice these questions thoroughly
-
+- It is clever graph traversal concept
 1. [Find Minimum Time to Reach Last Room I](3341-Find-Minimum-Time-to-Reach–Last-Room-I.py)
    - Basic Dijkstra implementation with single cost per move
    - Uses priority queue (heapq) to find shortest path
