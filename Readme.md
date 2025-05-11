@@ -2,8 +2,16 @@
 
 This repository contains my solutions to various LeetCode problems implemented in Python. The solutions are organized by problem number.
 
-## Algorithm Categories
 
+***Feel free to explore the solutions and raise issues if you find any bugs or have suggestions for improvements.***
+
+## Resources
+- [Dynamic Programming Guide](Dynamic-Programming.md)
+- [Heap Operations](Heap.md)
+- [Dijkstra's Algorithm](Dijkstra.md)
+- [Python Packages Guide](Python-Packages.md)
+
+## Algorithm Categories
 ### Dynamic Programming
 - [House Robber](198-House-robber.py) - Dynamic programming solution for house robbery
 - [Longest Common Subsequence](1143-Longest-common-subsequence.py) - Find longest common subsequence
@@ -29,10 +37,5 @@ This repository contains my solutions to various LeetCode problems implemented i
 - [Search 2D Matrix](74-Search-2d-Matrix.py) - Search in sorted 2D matrix
 - [Koko Eating Bananas](875-Koko-eating-banana.py) - Binary search application
 
-### Additional Resources
-- [Dynamic Programming Guide](Dynamic-Programming.md)
-- [Heap Operations](Heap.md)
-- [Dijkstra's Algorithm](Dijkstra.md)
-- [Python Packages Guide](Python-Packages.md)
 
-Feel free to explore the solutions and raise issues if you find any bugs or have suggestions for improvements.
+
