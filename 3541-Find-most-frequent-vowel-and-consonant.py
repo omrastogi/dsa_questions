@@ -1,14 +1,15 @@
 from collections import defaultdict
+from typing import Dict
 
 class Solution:
     def maxFreqSum(self, s: str) -> int:
-        vowel_freq = defaultdict(int)
-        cons_freq = defaultdict(int)
-        for i in s:
-            if i in "aeiou":
-                vowel_freq[i] += 1
+        vowel_freq: Dict[str, int] = defaultdict(int)
+        cons_freq: Dict[str, int] = defaultdict(int)
+        for char in s:
+            if char in "aeiou":
+                vowel_freq[char] += 1
             else:
-                cons_freq[i] += 1 
+                cons_freq[char] += 1 
         max_vowel = max(vowel_freq.values()) if vowel_freq else 0
         max_cons = max(cons_freq.values()) if cons_freq else 0
         return max_vowel + max_cons
@@ -21,4 +22,3 @@ if __name__ == "__main__":
     print(solution.maxFreqSum(s1))
     print(solution.maxFreqSum(s2))
     print(solution.maxFreqSum(s3))
-
