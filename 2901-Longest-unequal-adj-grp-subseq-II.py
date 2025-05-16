@@ -1,11 +1,9 @@
 from typing import List
 
 def hamming_distance(a: str, b: str) -> int:
-    if len(a) != len(b):
-        raise ValueError("Inputs must be of the same length")
     return sum(x != y for x, y in zip(a, b))
 
-class Solution:
+class Solution0:
     def getWordsInLongestSubsequence(self, words: List[str], groups: List[int]) -> List[str]:
         wrd_len_dict = {}
         # This dict keeps subsequences for different wrd_lens with different humming sequences
@@ -65,11 +63,50 @@ class Solution:
         key, idx = address
         return wrd_len_dict[key][idx][1]
 
+# DP bottom up solution
+class Solution:
+    def getWordsInLongestSubsequence(
+        self, words: List[str], groups: List[int]
+    ) -> List[str]:
+        n = len(groups)
+        dp = [1] * n
+        prev_ = [-1] * n
+        max_index = 0
+
+        for i in range(1, n):
+            for j in range(i):
+                if (
+                    self.check_hamming(words[i], words[j])
+                    and dp[j] + 1 > dp[i]
+                    and groups[i] != groups[j]
+                ):
+                    dp[i] = dp[j] + 1
+                    prev_[i] = j
+            if dp[i] > dp[max_index]:
+                max_index = i
+
+        ans = []
+        i = max_index
+        while i >= 0:
+            ans.append(words[i])
+            i = prev_[i]
+        ans.reverse()
+        return ans
+
+    def check_hamming(self, s1: str, s2: str) -> bool:
+        if len(s1) != len(s2):
+            return False
+        diff = 0
+        for c1, c2 in zip(s1, s2):
+            if c1 != c2:
+                diff += 1
+                if diff > 1:
+                    return False
+        return diff == 1
 
 if __name__ == "__main__":
     # Test case 1: Basic test with alternating groups and valid Hamming distances
-    for i in range(5, 0, -1):
-        print(i)
+
     words1 = ["bab","daba","cab","baba","bada"]
     groups1 = [1,2,2,1,2]
     
@@ -81,13 +118,10 @@ if __name__ == "__main__":
     words3 = ["aaa","bbb","ccc"]
     groups3 = [1,1,1]
     
-    # Test case 4: Empty input
-    words4 = []
-    groups4 = []
+
     
     solution = Solution()
     print(solution.getWordsInLongestSubsequence(words1, groups1))
-    # print(solution.getWordsInLongestSubsequence(words2, groups2))
-    # print(solution.getWordsInLongestSubsequence(words3, groups3))
-    # print(solution.getWordsInLongestSubsequence(words4, groups4))
+    print(solution.getWordsInLongestSubsequence(words2, groups2))
+    print(solution.getWordsInLongestSubsequence(words3, groups3))
 
