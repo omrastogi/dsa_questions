@@ -3,7 +3,6 @@ from stack import Stack
 
 T = TypeVar("T")
 
-# --- Your Stack class goes here (as defined earlier) ---
 
 class Queue(Generic[T]):
     """FIFO queue implemented using two Stacks."""
@@ -99,6 +98,3 @@ if __name__ == "__main__":
 
     while q:
         print("pop ->", q.dequeue())
-
-    # Uncomment to see the error raised on empty dequeue:
-    # q.dequeue()
