@@ -97,6 +97,67 @@ def tree_max(root):
         curr = curr.right 
     return curr
 
+def deletion(root, node):
+    """
+    Input:
+        root: The Root node in BST with 'left', 'right', and 'parent' pointers
+        node (Node): The node that is to be deleted
+
+    Three cases:
+    1. If z has no children 
+        - Just remove it 
+    2. If z has just one child
+        - make the child take the position of z in the subtree dragging it's child's subtree along 
+    3. If z has two children
+        - find the the successor of z (y) and replace z by y in the tree
+            - y must be in right subtree of z and have no left child 
+            - rest of the original subtree of z becomes the new right subtree of y 
+            - The left subtree of z becomes the new left subtree of y 
+    """
+    # if node has only the right child
+    if node.left is None:
+        transplant(root, node, node.right)
+    # if node has only the left child
+    elif node.right is None: 
+        transplant(root, node, node.left)
+    # if node has both child 
+    else:
+        y = tree_min(node.right) # successor of node
+        if y.parent != node:
+            transplant(root, y, y.right)
+            # setting the right side of node
+            y.right = node.right # set the right pointer of y
+            y.right.parent = y # set the parent pointer in right child 
+        
+        transplant(root, node, y)
+        y.left = node.left
+        y.left.parent = y # set the  the parent pointer of the left child
+
+
+
+def transplant(root, tar, rep):
+    """
+    Input:
+        root (Node): The Root node in BST with 'left', 'right', and 'parent' pointers
+        tar (Node): The target node to be replaced
+        rep (Node): The replacement node to place in the node2's position
+    """
+    # check if target is root node
+    if tar.parent is None:
+        root = rep
+    else:
+        # check if target is left and right to replace accordingly
+        if tar == tar.parent.left:
+            tar.parent.left = rep
+        else:
+            tar.parent.right = rep
+    # set the parent pointer after replacing the new node
+    if rep is not None:
+        rep.parent = tar.parent
+    
+    return root
+
+
 def successor(node):
     """
     Input:
@@ -131,14 +192,72 @@ def inorder_loop(root):
         order.append(curr.key)
         curr = curr.right
     return order
-            
+
+# def visualize_bst(root):
+#     """
+#     Prints a binary tree level-by-level using stacks.
+#     Each level is stored in a separate stack.
+#     """
+#     if not root:
+#         print("Tree is empty.")
+#         return
+
+#     level = [root]  # stack for the current level
+#     row = 0
+
+#     while level:
+#         print(f"Level {row}: ", end="")
+
+#         next_level = []  # stack for the next level
+#         for node in level:
+#             if node:
+#                 print(node.key, end="  ")
+#                 next_level.extend([node.left, node.right])
+#             else:
+#                 print("_", end="  ")  # represent empty node for visualization
+
+#         print("\n")
+#         # stop if next level is completely empty
+#         if all(n is None for n in next_level):
+#             break
+
+#         level = next_level
+#         row += 1         
+
+def build_rows(root):
+    """Return rows of nodes including None placeholders so that:
+       rows[i][j] -> children are rows[i+1][2*j], rows[i+1][2*j+1]."""
+    if not root:
+        return []
+    rows = [[root]]
+    while True:
+        prev = rows[-1]
+        nxt, any_real = [], False
+        for n in prev:
+            if n is None:
+                nxt.extend([None, None])
+            else:
+                nxt.append(n.left)
+                nxt.append(n.right)
+                any_real |= (n.left is not None or n.right is not None)
+        if not any_real:
+            break
+        rows.append(nxt)
+    return rows
+
 
 # Example usage
 if __name__ == "__main__":
-    keys = [50, 30, 20, 40, 70, 60, 80]
+    from binary_search_trees.bst_visualization import render_ascii_tree
+    keys = [50, 30, 20, 40, 70, 60, 80, 90, 75, 55, 65]
     root = None
     for k in keys:
         root = insert(root, k)
 
     print("Inorder traversal of BST:")
     print(inorder_loop(root))
+    print()
+    render_ascii_tree(root)
+    deletion(root, root.right)
+    print()
+    render_ascii_tree(root)
