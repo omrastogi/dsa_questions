@@ -1,14 +1,31 @@
 import random
 
-def partition(arr, low, high):
-    pivot = arr[high] 
-    i = low - 1
+def partition(A, low, high):
+    # this is a two-pointer approach in same space & O(1) extra space
+    # define i and j which act as partitioning “markers” between regions
+    # - i: the index before which all numbers ≤ pivot are kept
+    # - j: scans the array; before each step, all numbers in (i, j) are > pivot
+    # pivot at A[high] (the last item)
+    pivot = A[high]             # 1. pivot = A[high] | the last item
+
+    i = low - 1                 # 2. i = low - 1
+    # since no processing yet, items A[low..i] form the ≤ pivot region (currently empty)
+    # and A[i+1..j-1] are assumed > pivot before we process j
+
+    # 3. for j = low to high - 1
     for j in range(low, high):
-        if arr[j] < pivot:
-            i += 1
-            arr[i], arr[j] = arr[j], arr[i]    
-    arr[i+1], arr[high] = arr[high], arr[i+1]
-    return i+1
+        # 4. if A[j] ≤ pivot:
+        if A[j] <= pivot:
+            i += 1              #    increase i pointer (extend the ≤ region)
+            # 6. exchange A[i] with A[j]  | shift the lower number into the ≤ region
+            A[i], A[j] = A[j], A[i]
+
+    # 7. lastly, bring the pivot to sit between the two partitions
+    #    exchange A[i + 1] with A[high]
+    A[i + 1], A[high] = A[high], A[i + 1]
+
+    # 8. return i + 1 (final pivot index)
+    return i + 1
 
 def quicksort(arr, low, high, randn=False, debug=False, depth=0):
     if low >= high: 

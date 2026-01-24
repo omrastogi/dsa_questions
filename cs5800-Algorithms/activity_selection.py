@@ -1,61 +1,61 @@
-# def recursive_activity_selector(s, f, k, n):
-#     """
-#     Recursive activity selector (CLRS-style, 0-based with a dummy activity).
+def recursive_activity_selector(s, f, k, n):
+    """
+    Recursive activity selector (CLRS-style, 0-based with a dummy activity).
 
-#     Parameters
-#     ----------
-#     s : list[int]
-#         Start times. Assumes s[0] is a dummy with start = 0.
-#     f : list[int]
-#         Finish times. Assumes f[0] = 0 (dummy) and f is sorted non-decreasing.
-#     k : int
-#         Index of the last selected activity.
-#     n : int
-#         Total number of activities, including the dummy (len(s)).
+    Parameters
+    ----------
+    s : list[int]
+        Start times. Assumes s[0] is a dummy with start = 0.
+    f : list[int]
+        Finish times. Assumes f[0] = 0 (dummy) and f is sorted non-decreasing.
+    k : int
+        Index of the last selected activity.
+    n : int
+        Total number of activities, including the dummy (len(s)).
 
-#     Returns
-#     -------
-#     set[int]
-#         Set of indices of selected activities (excluding dummy).
-#     """
-#     m = k + 1
-#     # find first activity that starts after activity k finishes
-#     while m < n and s[m] < f[k]:
-#         m += 1
+    Returns
+    -------
+    set[int]
+        Set of indices of selected activities (excluding dummy).
+    """
+    m = k + 1
+    # find first activity that starts after activity k finishes
+    while m < n and s[m] < f[k]:
+        m += 1
 
-#     if m < n:
-#         # choose activity m and recurse on the rest
-#         return {m} | recursive_activity_selector(s, f, m, n)
-#     else:
-#         # no more compatible activities
-#         return set()
-
-
-# def activity_selector(s, f):
-#     """
-#     Wrapper that adds a dummy activity at index 0 and
-#     returns a sorted list of chosen activity indices.
-#     """
-#     # add dummy activity 0
-#     s2 = [0] + s
-#     f2 = [0] + f
-#     n = len(s2)
-
-#     chosen = recursive_activity_selector(s2, f2, 0, n)
-#     chosen = sorted(chosen)  # to get them in increasing index order
-#     chosen = [i-1 for i in chosen]
-#     return chosen
+    if m < n:
+        # choose activity m and recurse on the rest
+        return {m} | recursive_activity_selector(s, f, m, n)
+    else:
+        # no more compatible activities
+        return set()
 
 
-# if __name__ == "__main__":
-#     s = [1, 3, 0, 5, 3, 5, 6, 8, 8, 2, 12]
-#     f = [4, 5, 6, 7, 9, 9, 10, 11, 12, 14, 16]
+def activity_selector(s, f):
+    """
+    Wrapper that adds a dummy activity at index 0 and
+    returns a sorted list of chosen activity indices.
+    """
+    # add dummy activity 0
+    s2 = [0] + s
+    f2 = [0] + f
+    n = len(s2)
 
-#     lst = activity_selector(s, f)
+    chosen = recursive_activity_selector(s2, f2, 0, n)
+    chosen = sorted(chosen)  # to get them in increasing index order
+    chosen = [i-1 for i in chosen]
+    return chosen
 
-#     print(lst)
-#     for i in lst:
-#         print(f"start: {s[i]} | finish: {f[i]}")
+
+if __name__ == "__main__":
+    s = [1, 3, 0, 5, 3, 5, 6, 8, 8, 2, 12]
+    f = [4, 5, 6, 7, 9, 9, 10, 11, 12, 14, 16]
+
+    lst = activity_selector(s, f)
+
+    print(lst)
+    for i in lst:
+        print(f"start: {s[i]} | finish: {f[i]}")
 
 
 
@@ -110,7 +110,7 @@ def activity_selection_2d_dp(s, f):
 
             dp[i][j] = best
             choice[i][j] = best_k
-    
+
     # 5) Reconstruct solution from interval (0, m-1)
     def build_solution(i, j):
         k = choice[i][j]
@@ -124,14 +124,26 @@ def activity_selection_2d_dp(s, f):
 
     return selected_sorted_indices, selected_activities, dp
 
+def greedy_activity_selector(s,f):
+    n = len(s)
+    A = [0]
+    k = 0
+    for m in range(1, n):
+        if s[m] >= f[k]:
+            A.append(m)
+            k = m
+    return A
 
 if __name__ == "__main__":
     s = [1, 3, 0, 5, 3, 5, 6, 8, 8, 2, 12]
     f = [4, 5, 6, 7, 9, 9, 10, 11, 12, 14, 16]
 
-    idxs, acts, dp = activity_selection_2d_dp(s, f)
+    # idxs, acts, dp = greedy_activity_selector(s, f)
 
-    print("Selected (in sorted-by-finish order) indices:", idxs)
-    print("Selected activities (start, finish):")
-    for (st, ft) in acts:
-        print(f"start: {st} | finish: {ft}")
+    # print("Selected (in sorted-by-finish order) indices:", idxs)
+    # print("Selected activities (start, finish):")
+    # for (st, ft) in acts:
+    #     print(f"start: {st} | finish: {ft}")
+
+    A = greedy_activity_selector(s,f)
+    print(A)
